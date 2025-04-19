@@ -261,7 +261,41 @@
           <!-- Populated by JS -->
         </ul>
       </section>
+      <!-- New: Health Tips Section -->
+<section class="card" id="healthTips">
+  <h2>💡 Health Tips</h2>
+  <ul>
+    <li>🥦 Eat a balanced diet rich in fruits and vegetables.</li>
+    <li>🏃‍♂️ Exercise at least 30 minutes a day.</li>
+    <li>💧 Drink plenty of water.</li>
+    <li>🛌 Get 7-8 hours of sleep.</li>
+    <li>🧘‍♀️ Practice mindfulness or meditation.</li>
+  </ul>
+</section>
 
+<!-- New: Progress Tracker -->
+<section class="card" id="progressTracker">
+  <h2>📈 Progress Tracker</h2>
+  <canvas id="progressChart" width="200" height="200"></canvas>
+  <button onclick="updateProgress()">Update Progress</button>
+</section>
+
+<!-- New: FAQ Section -->
+<section class="card" id="faq">
+  <h2>❓ Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <button class="faq-question">What is HealthMate?</button>
+    <div class="faq-answer" style="display:none;">HealthMate is your personal health dashboard.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-question">How do I check in?</button>
+    <div class="faq-answer" style="display:none;">Click the "Check-In" button on the dashboard to record your status.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-question">Can I toggle dark mode?</button>
+    <div class="faq-answer" style="display:none;">Yes, click the "Toggle Theme" button to switch modes.</div>
+  </div>
+</section>
       <!-- Health News Section -->
       <section id="#news" class="card" tabindex="0" role="region" aria-labelledby="news-heading">
         <h2 id="news-heading">📰 Latest Health News</h2>
