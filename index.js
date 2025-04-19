@@ -1,3 +1,43 @@
+(function () {
+  // ... (Keep your existing functions)
+
+  // Smart Onboarding Delay
+  if (!localStorage.getItem('seenOnboarding')) {
+    setTimeout(() => {
+      document.getElementById('onboarding').style.display = 'flex';
+      localStorage.setItem('seenOnboarding', 'true');
+    }, 1000); // show after 1s
+  }
+
+  // Enhanced Chatbot AI Simulation
+  const responses = {
+    'hello': 'Hi there! How can I support your health today?',
+    'symptom': 'Try using the symptom checker to log what you’re feeling.',
+    'check-in': 'You can check in anytime using the Dashboard section.',
+    'default': 'I’m here to help! Try rephrasing your question.'
+  };
+
+  document.getElementById('chatForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const msg = document.getElementById('chatInput').value.trim();
+    if (!msg) return;
+    appendMessage('You', msg);
+    document.getElementById('chatInput').value = '';
+    setTimeout(() => {
+      const lowerMsg = msg.toLowerCase();
+      const key = Object.keys(responses).find(k => lowerMsg.includes(k)) || 'default';
+      appendMessage('HealthMate', responses[key]);
+    }, 700);
+  });
+
+  // Add keyboard accessibility for onboarding
+  document.getElementById('onboarding').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === 'Escape') {
+      startOnboarding();
+    }
+  });
+
+})();
 // Feedback system for symptom form
 document.getElementById("symptomForm").addEventListener("submit", function (e) {
   e.preventDefault();
