@@ -1,1 +1,393 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HealthMate - Interactive Health Management</title>
+  <meta name="description" content="Comprehensive online health management system leveraging HCI principles." />
+  <style>
+    /* Reset & Box Sizing */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Typography & Color Palette (Color Psychology) */
+    :root {
+      --primary: #007BFF; /* Trust, reliability */
+      --secondary: #28A745; /* Health, growth */
+      --accent: #FFC107; /* Attention */
+      --bg: #F4F6F8;
+      --card-bg: #FFFFFF;
+      --text: #333333;
+      --muted: #6C757D;
+      --font-base: 'Segoe UI', sans-serif;
+      --radius: 0.75rem;
+      --shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px;
+    }
+
+    body {
+      font-family: var(--font-base);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Skip Link (Accessibility & Universal Design) */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary);
+      color: #fff;
+      padding: 0.5rem;
+      text-decoration: none;
+      z-index: 100;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      font-size: 1.75rem;
+      /* Visual Dominance */
+    }
+    nav ul {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* Layout Grid (Balance & Gestalt Grouping) */
+    #container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    aside {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      /* Gestalt: Uniform Connectedness */
+    }
+    aside h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+    }
+    aside ul { list-style: none; margin-top: 1rem; }
+    aside li {
+      margin: 0.75rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    main {
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      /* Consistency & Learnability via uniform card style */
+    }
+    .card h2 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card button, .card a.button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+    .card button:hover, .card a.button:hover {
+      background: #218838;
+    }
+    .card form label {
+      display: block;
+      margin: 0.5rem 0;
+      cursor: pointer;
+    }
+    .card form input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+
+    /* Tooltip (User Support Systems Principle) */
+    .tooltip {
+      position: relative;
+      cursor: help;
+    }
+    .tooltip:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--muted);
+      color: #fff;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius);
+      white-space: nowrap;
+      font-size: 0.875rem;
+      /* Feedback & Help */
+    }
+
+    /* Responsive Design (Flexibility & Robustness) */
+    @media (max-width: 768px) {
+      #container { grid-template-columns: 1fr; }
+      header { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* Onboarding Overlay (Law of Learning, Serial Position Effect) */
+    #onboarding {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      display: none;
+      /* Hidden until first use */
+    }
+    #onboarding .modal {
+      background: var(--card-bg);
+      padding: 2rem;
+      width: 90%; max-width: 500px;
+      border-radius: var(--radius);
+      text-align: center;
+    }
+    #onboarding .modal button {
+      margin-top: 1rem;
+    }
+
+    /* Dark Mode Toggle (Flexibility) */
+    .dark-mode {
+      --bg: #1E1E1E;
+      --card-bg: #2C2C2C;
+      --text: #E0E0E0;
+      --muted: #B0B0B0;
+    }
+    body.dark-mode { background: var(--bg); color: var(--text); }
+    body.dark-mode header { background: var(--secondary); }
+    body.dark-mode footer, body.dark-mode .skip-link { background: var(--muted); }
+
+    footer {
+      padding: 1rem;
+      background: var(--primary);
+      color: white;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <header role="banner">
+    <h1>HealthMate</h1>
+    <nav role="navigation" aria-label="Main navigation">
+      <ul>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#symptom-checker">Symptoms</a></li>
+        <li><a href="#centers">Centers</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#help-support">Help</a></li>
+      </ul>
+    </nav>
+    <button id="themeToggle" aria-label="Toggle dark mode">🌓</button>
+  </header>
+
+  <div id="container">
+    <aside role="complementary" aria-labelledby="quick-actions-heading">
+      <h2 id="quick-actions-heading">Quick Actions</h2>
+      <ul>
+        <li><button onclick="goTo('dashboard')">🔄 Check-In</button></li>
+        <li><button onclick="goTo('symptom-checker')">🩺 Symptom Checker</button></li>
+        <li><button onclick="goTo('centers')">📍 Nearby Centers</button></li>
+        <li><button onclick="goTo('help-support')">❓ Help & Support</button></li>
+      </ul>
+    </aside>
+
+    <main id="main">
+      <!-- Dashboard Section -->
+      <section id="dashboard" class="card" tabindex="0" role="region" aria-labelledby="dashboard-heading">
+        <h2 id="dashboard-heading" class="tooltip" data-tip="Your latest health snapshot">👤 Dashboard</h2>
+        <p>Last Check-In: <strong id="lastCheckin">Not yet</strong></p>
+        <button onclick="checkIn()">Check-In Now</button>
+      </section>
+
+      <!-- Symptom Checker Section -->
+      <section id="symptom-checker" class="card" tabindex="0" role="region" aria-labelledby="symptom-heading">
+        <h2 id="symptom-heading">🩺 Symptom Checker</h2>
+        <form id="symptomForm" aria-describedby="symptom-desc">
+          <p id="symptom-desc">Select any symptoms you are experiencing.</p>
+          <label><input type="checkbox" name="fever" /> Fever</label>
+          <label><input type="checkbox" name="cough" /> Cough</label>
+          <label><input type="checkbox" name="fatigue" /> Fatigue</label>
+          <button type="submit">Submit</button>
+        </form>
+        <p id="symptomResult" aria-live="polite"></p>
+      </section>
+
+      <!-- Nearby Health Centers Section -->
+      <section id="centers" class="card" tabindex="0" role="region" aria-labelledby="centers-heading">
+        <h2 id="centers-heading">🏥 Nearby Health Centers</h2>
+        <ul id="centersList">
+          <!-- Populated by JS -->
+        </ul>
+      </section>
+
+      <!-- Health News Section -->
+      <section id="#news" class="card" tabindex="0" role="region" aria-labelledby="news-heading">
+        <h2 id="news-heading">📰 Latest Health News</h2>
+        <article>
+          <h3>WHO observes new COVID-19 variant</h3>
+          <p>As of April 15, 2025, the WHO is monitoring a new strain with mild symptoms but higher transmissibility.</p>
+        </article>
+      </section>
+
+      <!-- Help & Support Section -->
+      <section id="help-support" class="card" tabindex="0" role="region" aria-labelledby="help-heading">
+        <h2 id="help-heading">❓ Help & Support</h2>
+        <div id="chatbot" role="region" aria-labelledby="chatbot-heading">
+          <h3 id="chatbot-heading">Chat with our assistant</h3>
+          <div id="chatWindow" aria-live="polite"></div>
+          <form id="chatForm">
+            <input type="text" id="chatInput" aria-label="Type your message" placeholder="How can I help you?" />
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer role="contentinfo">
+    <p>&copy; 2025 HealthMate. All rights reserved.</p>
+  </footer>
+
+  <!-- Onboarding Overlay -->
+  <div id="onboarding">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="onboarding-title">
+      <h2 id="onboarding-title">Welcome to HealthMate</h2>
+      <p>Let's take a quick tour to get you started!</p>
+      <button onclick="startOnboarding()">Start Tour</button>
+    </div>
+  </div>
+
+  <script>
+    /* Encapsulate in IIFE (Closure & Robustness) */
+    (function() {
+      /* LocalStorage for Recency & Primality */
+      const lastCheckinEl = document.getElementById('lastCheckin');
+      const savedCheckin = localStorage.getItem('lastCheckin');
+      if (savedCheckin) {
+        lastCheckinEl.textContent = savedCheckin;
+      }
+
+      /* Check-In Function (Feedback & Visibility of System Status) */
+      window.checkIn = function() {
+        const now = new Date().toLocaleString();
+        localStorage.setItem('lastCheckin', now);
+        lastCheckinEl.textContent = now;
+        alert('✅ Check-In recorded at ' + now);
+      };
+
+      /* Symptom Form Submission (Error Prevention & Recovery) */
+      document.getElementById('symptomForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        if (![...data.keys()].length) {
+          alert('⚠️ Please select at least one symptom.');
+          return;
+        }
+        document.getElementById('symptomResult').textContent =
+          '📌 Symptoms submitted. Please follow recommended guidelines.';
+      });
+
+      /* Populate Nearby Centers (Flexibility & Learnability) */
+      const centers = [
+        { name: 'City Clinic', dist: '1.2 km' },
+        { name: 'Govt. Hospital', dist: '2.4 km' },
+        { name: 'HealthCare Plus', dist: '3.1 km' }
+      ];
+      const centersList = document.getElementById('centersList');
+      centers.forEach(c => {
+        const li = document.createElement('li');
+        li.textContent = `${c.name} - ${c.dist}`;
+        centersList.appendChild(li);
+      });
+
+      /* Chatbot Simulation (User Support Systems) */
+      const chatWindow = document.getElementById('chatWindow');
+      document.getElementById('chatForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const msg = document.getElementById('chatInput').value.trim();
+        if (!msg) return;
+        appendMessage('You', msg);
+        document.getElementById('chatInput').value = '';
+        setTimeout(() => appendMessage('HealthMate', 'I am here to help!'), 800);
+      });
+      function appendMessage(sender, text) {
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${sender}:</strong> ${text}`;
+        chatWindow.appendChild(p);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
+
+      /* Onboarding Tour (Law of Learning) */
+      window.startOnboarding = function() {
+        document.getElementById('onboarding').style.display = 'none';
+        alert('Tour completed! Explore the dashboard to get started.');
+      };
+      /* Show on first load (Serial Position Effect) */
+      if (!localStorage.getItem('seenOnboarding')) {
+        document.getElementById('onboarding').style.display = 'flex';
+        localStorage.setItem('seenOnboarding', 'true');
+      }
+
+      /* Dark Mode Toggle */
+      document.getElementById('themeToggle').addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+      });
+
+      /* Smooth Scroll for Quick Actions (Interaction Design Paradigm) */
+      window.goTo = function(id) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        document.getElementById(id).focus({ preventScroll: true });
+      };
+
+      /* Keyboard Navigation (Accessibility) */
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+          document.body.classList.add('user-is-tabbing');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
