@@ -5,7 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HealthMate - Interactive Health Management</title>
-  <link rel="stylesheet" href="css/index.css">
   <meta name="description" content="Comprehensive online health management system leveraging HCI principles." />
   <style>
     /* Reset & Box Sizing */
@@ -254,6 +253,20 @@
         </form>
         <p id="symptomResult" aria-live="polite"></p>
       </section>
+ <!-- Onboarding Modal -->
+  <div id="onboardingModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Welcome to HealthMate!</h2>
+      <p>Let's walk you through the key features of the app:</p>
+      <ol class="feature-list">
+        <li>Track your health metrics (steps, water intake, sleep)</li>
+        <li>Use the Symptom Checker to monitor your health</li>
+        <li>Find nearby health centers easily</li>
+      </ol>
+      <button id="startButton">Start Using HealthMate</button>
+    </div>
+  </div>
 
       <!-- Nearby Health Centers Section -->
       <section id="centers" class="card" tabindex="0" role="region" aria-labelledby="centers-heading">
