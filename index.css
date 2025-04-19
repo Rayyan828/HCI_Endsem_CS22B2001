@@ -1,1 +1,119 @@
+:root {
+  --primary: #007BFF;
+  --accent: #28a745;
+  --bg: #f0f2f5;
+  --card: white;
+  --text: #333;
+}
+body.dark-mode {
+  --bg: #1e1e1e;
+  --card: #2c2c2c;
+  --text: #f0f0f0;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background 0.3s ease;
+}
+
+header {
+  background: var(--primary);
+  color: white;
+  padding: 1rem;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+main {
+  padding: 2rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.card {
+  background: var(--card);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+button {
+  background: var(--accent);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #218838;
+}
+
+.summary-cards {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.summary {
+  background: #e3f2fd;
+  padding: 1rem;
+  flex: 1;
+  border-radius: 8px;
+}
+
+footer {
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  width: 100%;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+fieldset {
+  border: none;
+  margin-top: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+#darkToggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+}
 
