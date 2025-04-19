@@ -1,118 +1,188 @@
-:root {
-  --primary: #007BFF;
-  --accent: #28a745;
-  --bg: #f0f2f5;
-  --card: white;
-  --text: #333;
-}
-body.dark-mode {
-  --bg: #1e1e1e;
-  --card: #2c2c2c;
-  --text: #f0f0f0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HealthMate - Your Health Companion</title>
+  <meta name="description" content="A modern, accessible health management interface using HCI principles." />
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    /* ========== Base Reset ========== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-  font-family: "Segoe UI", sans-serif;
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  transition: background 0.3s ease;
-}
+    /* ========== Variables ========== */
+    :root {
+      --primary: #007BFF;
+      --secondary: #28A745;
+      --accent: #FFC107;
+      --bg: #F4F6F8;
+      --card-bg: #FFFFFF;
+      --text: #333;
+      --muted: #6C757D;
+      --radius: 0.75rem;
+      --shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px;
+      --font-base: 'Segoe UI', sans-serif;
+      --transition: all 0.3s ease-in-out;
+    }
 
-header {
-  background: var(--primary);
-  color: white;
-  padding: 1rem;
-}
+    body {
+      font-family: var(--font-base);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: var(--transition);
+    }
 
-header h1 {
-  margin: 0;
-}
+    /* ========== Accessibility ========== */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem;
+      text-decoration: none;
+      z-index: 1000;
+      transition: top 0.3s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 0;
-  margin: 0.5rem 0 0 0;
-}
+    /* ========== Header ========== */
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
 
-nav a {
-  color: white;
-  text-decoration: none;
-}
+    header h1 {
+      font-size: 2rem;
+    }
 
-main {
-  padding: 2rem;
-  display: grid;
-  gap: 2rem;
-}
+    nav ul {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
 
-.card {
-  background: var(--card);
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
 
-button {
-  background: var(--accent);
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
+    nav a:hover,
+    nav a:focus {
+      color: var(--accent);
+    }
 
-button:hover {
-  background: #218838;
-}
+    #themeToggle {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
 
-.summary-cards {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
+    /* ========== Layout ========== */
+    #container {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 1rem;
+      padding: 1rem;
+    }
 
-.summary {
-  background: #e3f2fd;
-  padding: 1rem;
-  flex: 1;
-  border-radius: 8px;
-}
+    aside {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
 
-footer {
-  background: var(--primary);
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  margin-top: 2rem;
-}
+    aside h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
 
-input[type="text"] {
-  padding: 0.5rem;
-  width: 100%;
-  margin: 0.5rem 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
+    aside ul {
+      list-style: none;
+      margin-top: 1rem;
+    }
 
-fieldset {
-  border: none;
-  margin-top: 1rem;
-}
+    aside li {
+      margin: 1rem 0;
+    }
 
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
+    aside button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--secondary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
 
-#darkToggle {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  color: white;
-  cursor: pointer;
-}
+    aside button:hover {
+      background: #218838;
+    }
+
+    main {
+      padding: 0 1rem;
+    }
+
+    section.card {
+      background: var(--card-bg);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    section.card h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    section.card p {
+      margin-bottom: 1rem;
+    }
+
+    /* More styles will continue in Part 2 */
+  </style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header role="banner">
+  <h1>HealthMate</h1>
+  <nav role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="#symptom-checker">Symptoms</a></li>
+      <li><a href="#centers">Centers</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#support">Support</a></li>
+    </ul>
+  </nav>
+  <button id="themeToggle" aria-label="Toggle dark mode">🌓</button>
+</header>
