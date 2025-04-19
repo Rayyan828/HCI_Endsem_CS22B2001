@@ -1,4 +1,3 @@
-
 // Feedback system for symptom form
 document.getElementById("symptomForm").addEventListener("submit", function (e) {
   e.preventDefault();
